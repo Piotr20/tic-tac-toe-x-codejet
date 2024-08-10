@@ -7,7 +7,14 @@ import { MarkerCircle, MarkerCross } from "@/components/shared";
 export function LobbyDialog() {
   return (
     <StyledLobbyDialogContainer>
-      <Text tag="h1">Welcome to Tic Tac Toe</Text>
+      <Text
+        tag="h1"
+        additionalStyles={{
+          textAlign: "center",
+        }}
+      >
+        Tic Tac Toe
+      </Text>
       <Text tag="p">It's a short game showing a sample of my frontend coding skills</Text>
       <StyledLobbyDialogBody>
         <StyledPlayerInputList>
@@ -21,7 +28,12 @@ export function LobbyDialog() {
             >
               Player 1
             </Text>
-            <Input type="text" />
+            <Input
+              type="text"
+              additionalStyles={{
+                marginBottom: "8px",
+              }}
+            />
             <MarkerCross />
           </StyledPlayerInputListItem>
           <StyledPlayerInputListItem>
@@ -34,7 +46,12 @@ export function LobbyDialog() {
             >
               Player 2
             </Text>
-            <Input type="text" />
+            <Input
+              type="text"
+              additionalStyles={{
+                marginBottom: "8px",
+              }}
+            />
             <MarkerCircle />
           </StyledPlayerInputListItem>
         </StyledPlayerInputList>
@@ -68,6 +85,7 @@ export function LobbyDialog() {
                 >
                   {board.label}
                 </Text>
+                <Text tag="p">Chose how big the board should be</Text>
                 <Input min={3} type="number" />
               </StyledBoardSizePickerCell>
             )
@@ -133,7 +151,7 @@ export const StyledPlayerInputListItem = styled.li<{
   ...additionalStyles,
 }));
 
-export const StyledBoardSizePickerContainer = styled.ul<{
+export const StyledBoardSizePickerContainer = styled.div<{
   additionalStyles?: CSSObject;
 }>(({ additionalStyles }) => ({
   display: "grid",
@@ -150,7 +168,14 @@ export const StyledBoardSizePickerCell = styled.button<{
   additionalStyles?: CSSObject;
 }>(({ additionalStyles }) => ({
   padding: "16px",
-
+  cursor: "pointer",
+  transition: "all 0.3s",
+  ["&:hover, &:focus"]: {
+    backgroundColor: colors.primary.blue,
+    ["&>h5, &>p"]: {
+      color: colors.primary.white,
+    },
+  },
   [mq("lg")]: {
     padding: "24px",
   },
@@ -166,6 +191,8 @@ export const StyledBoard = styled.ul<{
   gridTemplateColumns: `repeat(${size}, 1fr)`,
   padding: "16px",
   minWidth: "120px",
+  maxWidth: "200px",
+  margin: "0 auto",
   [mq("lg")]: {
     padding: "24px",
   },
@@ -175,7 +202,7 @@ export const StyledBoard = styled.ul<{
 export const StyledBoardCell = styled.li<{
   additionalStyles?: CSSObject;
 }>(({ additionalStyles }) => ({
-  backgroundColor: colors.primary.blue,
+  backgroundColor: colors.base.grey700,
   border: `1px solid ${colors.primary.gray}`,
 
   aspectRatio: "1/1",
