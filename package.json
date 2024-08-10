@@ -10,6 +10,7 @@
     "svg": "node ./svg.js"
   },
   "dependencies": {
+    "@emotion/is-prop-valid": "^1.3.0",
     "@xstate/react": "^4.1.1",
     "next": "14.2.5",
     "react": "^18",

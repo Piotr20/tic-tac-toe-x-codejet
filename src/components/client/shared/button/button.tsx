@@ -13,9 +13,15 @@ type Props = {
   additionalStyles?: CSSObject;
 } & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children">;
 
-export function Button({ children, kind, disabled, onClick, additionalStyles }: Props) {
+export function Button({ children, kind, disabled, onClick, additionalStyles, ...rest }: Props) {
   return (
-    <StyledButton onClick={onClick} kind={kind} disabled={disabled} additionalStyles={additionalStyles}>
+    <StyledButton
+      onClick={onClick}
+      kind={kind}
+      disabled={disabled}
+      additionalStyles={additionalStyles}
+      {...rest}
+    >
       {children}
     </StyledButton>
   );

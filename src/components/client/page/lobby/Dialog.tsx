@@ -85,13 +85,21 @@ export function LobbyDialog() {
                 >
                   {board.label}
                 </Text>
-                <Text tag="p">Chose how big the board should be</Text>
+                <Text
+                  tag="p"
+                  additionalStyles={{
+                    marginBottom: "8px",
+                  }}
+                >
+                  Chose how big the board should be
+                </Text>
                 <Input min={3} type="number" />
               </StyledBoardSizePickerCell>
             )
           )}
         </StyledBoardSizePickerContainer>
         <Button
+          disabled
           kind="primary"
           additionalStyles={{
             margin: "0 auto",
