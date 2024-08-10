@@ -14,7 +14,6 @@ type Props = {
   url?: string;
   additionalStyles?: CSSObject;
   onClick?: ReactEventHandler;
-  dangerouslySetInnerHTML?: ReactNode;
 };
 
 export function Text({
@@ -26,7 +25,6 @@ export function Text({
   lineThrough,
   url,
   additionalStyles,
-  dangerouslySetInnerHTML,
   onClick,
 }: Props) {
   switch (tag) {
@@ -37,16 +35,7 @@ export function Text({
     case "h5":
     case "h6":
       return (
-        <Heading
-          onClick={onClick}
-          tag={tag}
-          dark={dark}
-          styles={additionalStyles}
-          as={tag}
-          dangerouslySetInnerHTML={{
-            __html: dangerouslySetInnerHTML as string | TrustedHTML,
-          }}
-        >
+        <Heading onClick={onClick} tag={tag} dark={dark} styles={additionalStyles} as={tag}>
           {children}
         </Heading>
       );
@@ -60,38 +49,19 @@ export function Text({
           italic={italic}
           lineThrough={lineThrough}
           styles={additionalStyles}
-          dangerouslySetInnerHTML={{
-            __html: dangerouslySetInnerHTML as string | TrustedHTML,
-          }}
         >
           {children}
         </Paragraph>
       );
     case "a":
       return (
-        <LinkCTA
-          dark={dark}
-          bold={bold}
-          styles={additionalStyles}
-          href={url}
-          dangerouslySetInnerHTML={{
-            __html: dangerouslySetInnerHTML as string | TrustedHTML,
-          }}
-        >
+        <LinkCTA dark={dark} bold={bold} styles={additionalStyles} href={url}>
           {children}
         </LinkCTA>
       );
     default:
       return (
-        <Span
-          onClick={onClick}
-          dark={dark}
-          styles={additionalStyles}
-          as={tag}
-          dangerouslySetInnerHTML={{
-            __html: dangerouslySetInnerHTML as string | TrustedHTML,
-          }}
-        >
+        <Span onClick={onClick} dark={dark} styles={additionalStyles} as={tag}>
           {children}
         </Span>
       );

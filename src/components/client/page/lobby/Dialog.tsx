@@ -1,9 +1,15 @@
 import { transformCenter } from "@/util";
 import { mq } from "@/util/media-queries";
 import styled, { CSSObject } from "styled-components";
+import { Text } from "../../shared";
 
 export function LobbyDialog() {
-  return <StyledLobbyDialogContainer></StyledLobbyDialogContainer>;
+  return (
+    <StyledLobbyDialogContainer>
+      <Text tag="h1">Welcome to Tic Tac Toe</Text>
+      <Text tag="p">Welcome to Tic Tac Toe</Text>
+    </StyledLobbyDialogContainer>
+  );
 }
 
 export const StyledLobbyDialogContainer = styled.button<{
