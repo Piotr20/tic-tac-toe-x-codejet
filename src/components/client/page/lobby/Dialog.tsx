@@ -68,7 +68,7 @@ export function LobbyDialog() {
                 >
                   {board.label}
                 </Text>
-                <Input type="number" />
+                <Input min={3} type="number" />
               </StyledBoardSizePickerCell>
             )
           )}
@@ -164,7 +164,11 @@ export const StyledBoard = styled.ul<{
   listStyle: "none",
   display: "grid",
   gridTemplateColumns: `repeat(${size}, 1fr)`,
-  [mq("lg")]: {},
+  padding: "16px",
+  minWidth: "120px",
+  [mq("lg")]: {
+    padding: "24px",
+  },
   ...additionalStyles,
 }));
 
@@ -173,6 +177,7 @@ export const StyledBoardCell = styled.li<{
 }>(({ additionalStyles }) => ({
   backgroundColor: colors.primary.blue,
   border: `1px solid ${colors.primary.gray}`,
+
   aspectRatio: "1/1",
   [mq("lg")]: {},
   ...additionalStyles,

@@ -9,14 +9,14 @@ type Props = {
   onChange?: ReactEventHandler;
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "children">;
 
-export function Input({ placeholder, additionalStyles, type, onChange }: Props) {
+export function Input({ placeholder, additionalStyles, type, onChange, ...rest }: Props) {
   const [wordCount, setWordCount] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const [focus, setFocus] = useState(false);
 
   return (
     <InputWrapper additionalStyles={additionalStyles}>
-      <StyledInput onChange={onChange} placeholder={placeholder} type={type} />
+      <StyledInput onChange={onChange} placeholder={placeholder} type={type} {...rest} />
     </InputWrapper>
   );
 }
