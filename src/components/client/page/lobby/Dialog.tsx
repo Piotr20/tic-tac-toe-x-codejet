@@ -1,7 +1,7 @@
 import { BoardSizes, colors, transformCenter } from "@/util";
 import { mq } from "@/util/media-queries";
 import styled, { CSSObject } from "styled-components";
-import { Input, Text } from "../../shared";
+import { Button, Input, Text } from "../../shared";
 import { MarkerCircle, MarkerCross } from "@/components/shared";
 
 export function LobbyDialog() {
@@ -91,6 +91,15 @@ export function LobbyDialog() {
             )
           )}
         </StyledBoardSizePickerContainer>
+        <Button
+          kind="primary"
+          additionalStyles={{
+            margin: "0 auto",
+            marginTop: "24px",
+          }}
+        >
+          Start
+        </Button>
       </StyledLobbyDialogBody>
     </StyledLobbyDialogContainer>
   );
