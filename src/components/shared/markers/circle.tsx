@@ -6,9 +6,21 @@ export function MarkerCircle() {
       width="50px"
       height="50px"
       viewBox="0 0 50 50"
+      style={{
+        transform: "rotate(45deg)",
+      }}
     >
-      <line pathLength="100" className="stroke" x1="8.5" y1="8.5" x2="41.5" y2="41.5" />
-      <line pathLength="100" className="stroke" x1="41.5" y1="8.5" x2="8.5" y2="41.5" />
+      <circle
+        className="stroke"
+        pathLength="100"
+        cx="25"
+        cy="25"
+        r="18"
+        style={{
+          transform: "rotate(-90) scale(1 -1)",
+          transformOrigin: "25 25",
+        }}
+      />
     </svg>
   );
 }
