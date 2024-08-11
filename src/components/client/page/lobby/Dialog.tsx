@@ -19,14 +19,14 @@ export function LobbyDialog({ setBoardSize, setPlayer1, setPlayer2, setStartGame
   return (
     <StyledLobbyDialogContainer>
       <Text
-        tag="h1"
+        tag={"h1"}
         additionalStyles={{
           textAlign: "center",
         }}
       >
         Tic Tac Toe
       </Text>
-      <Text tag="p">It's a short game showing a sample of my frontend coding skills</Text>
+      <Text tag={"p"}>It&apos;s a short game showing a sample of my frontend coding skills</Text>
       <StyledLobbyDialogBody>
         <StyledPlayerInputList>
           <StyledPlayerInputListItem>
