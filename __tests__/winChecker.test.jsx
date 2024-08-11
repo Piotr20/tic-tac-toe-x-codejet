@@ -38,6 +38,20 @@ describe("checkWinnerHelper", () => {
     expect(winner).toBe("draw");
   });
 
+  it("returns null when there is no winner", () => {
+    const board = [
+      [null, null, null, null, null],
+      [null, null, null, null, null],
+      [null, null, null, null, null],
+      [null, null, null, null, null],
+      [null, null, null, null, null],
+    ];
+
+    const winner = checkWinnerHelper(board);
+
+    expect(winner).toBeNull();
+  });
+
   it("returns 'X' when X wins on a 4x4", () => {
     const board = [
       ["X", "X", "X", "X"],
