@@ -16,21 +16,41 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm run build
+# and
+npm run start
+```
 
-## Learn More
+### Testing
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run test
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Description
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Project Description
+This project is a Tic-Tac-Toe game built using Next.js, a popular React framework for building server-side rendered and statically generated web applications. The game allows two players to compete against each other in a classic 3x3 grid format. The project demonstrates the use of modern web development practices, including:
 
-## Deploy on Vercel
+### Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- React: For building the user interface components.
+- Next.js: For server-side rendering and static site generation.
+- TypeScript: For type safety and improved developer experience.
+- XState: For state management.
+- Jest: For unit testing the application components.
+- Testing Library: For testing React components in a user-centric way.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Features
+
+- Real-time Gameplay: The game updates in real-time as players make their moves.
+- Custom player names.
+- Custom Size Boards: Allow players to choose the size of the game board, such as 4x4 or 5x5, providing a more challenging gameplay experience.
+- Small sample tests written in Jest.
+
+I encourage to see this project for more comprehensive show of my skills
+[Bachelor project](https://github.com/Piotr20/Bachelor-project) there I used styled components, framer-motion, zustand etc. as well as
+paid more attention to the code quality.
