@@ -1,7 +1,7 @@
 "use client";
 import { MarkerCircle, MarkerCross } from "@/components/shared";
 import { checkWinner } from "@/lib/actions";
-import { checkWinnerHelper } from "@/lib/helpers";
+import { checkWinnerHelper, handleMoveHelper } from "@/lib/helpers";
 import { gameStateStore } from "@/store/store";
 import { colors, flexCenter, transformCenter } from "@/util";
 import { mq } from "@/util/media-queries";
@@ -11,12 +11,13 @@ import styled, { CSSObject } from "styled-components";
 import { Button, Text } from "../../shared";
 
 type Props = {
+  setStartGame: (startGame: boolean) => void;
   player1: string;
   player2: string;
   boardSize: number;
 };
 
-export function Board({ boardSize, player1, player2 }: Props) {
+export function Board({ boardSize, player1, player2, setStartGame }: Props) {
   const [turn, setTurn] = useState<
     | {
         name: typeof player1;
@@ -31,11 +32,18 @@ export function Board({ boardSize, player1, player2 }: Props) {
     marker: "X",
   });
   const [cells, setCells] = useState(new Array(boardSize).fill(new Array(boardSize).fill(null)));
-  const [winner, setWinner] = useState<"X" | "O">();
+  const [winner, setWinner] = useState<"X" | "O" | "draw">();
+  const [state, send] = useMachine(gameStateStore);
 
   useEffect(() => {
+    setTurn((prevTurn) => {
+      return prevTurn.name === player1 ? { name: player2, marker: "O" } : { name: player1, marker: "X" };
+    });
     const winner = checkWinnerHelper(cells);
-    if (winner) setWinner(winner);
+    if (winner) {
+      setWinner(winner);
+      winner === "draw" ? send({ type: "DRAW" }) : send({ type: "WIN" });
+    }
   }, [cells]);
 
   return (
@@ -47,34 +55,14 @@ export function Board({ boardSize, player1, player2 }: Props) {
               cursor: "pointer",
               position: "relative",
               ["&:hover>span"]: {
-                opacity: 1,
+                opacity: 0.5,
               },
             }}
             key={index}
             onClick={() => {
               if (!winner) {
-                setCells((prevCells) => {
-                  let newCells: string[][] = [...prevCells];
-
-                  newCells = newCells.map((row, rowIndex) => {
-                    if (rowIndex === Math.floor(index / boardSize)) {
-                      return row.map((cell, columnIndex) => {
-                        if (columnIndex === Math.floor(index % boardSize)) {
-                          return turn.marker;
-                        }
-                        return cell;
-                      });
-                    }
-                    return row;
-                  });
-
-                  return newCells;
-                });
-                setTurn((prevTurn) => {
-                  return prevTurn.name === player1
-                    ? { name: player2, marker: "O" }
-                    : { name: player1, marker: "X" };
-                });
+                const newBoard = handleMoveHelper({ cells, index, turn, boardSize });
+                cells.flat()[index] === null && setCells(newBoard);
               }
             }}
           >
@@ -107,18 +95,39 @@ export function Board({ boardSize, player1, player2 }: Props) {
             : `${player2}'s turn`}
         </Text>
         {winner && (
-          <StyledResetButton
-            additionalStyles={{
-              marginTop: "16px",
-            }}
-            onClick={() => {
-              setCells(new Array(boardSize).fill(new Array(boardSize).fill(null)));
-              setWinner(undefined);
-              setTurn({ name: player1, marker: "X" });
-            }}
-          >
-            Reset
-          </StyledResetButton>
+          <>
+            <Button
+              kind="primary"
+              additionalStyles={{
+                marginTop: "16px",
+                border: `1px solid ${colors.secondary.lightYellow}`,
+              }}
+              onClick={() => {
+                setCells(new Array(boardSize).fill(new Array(boardSize).fill(null)));
+                setWinner(undefined);
+                setTurn({ name: player1, marker: "X" });
+                send({ type: "RESTART" });
+              }}
+            >
+              Reset
+            </Button>
+            <Button
+              kind="secondary"
+              additionalStyles={{
+                marginTop: "16px",
+                border: `1px solid ${colors.primary.white}`,
+              }}
+              onClick={() => {
+                setCells(new Array(boardSize).fill(new Array(boardSize).fill(null)));
+                setWinner(undefined);
+                setTurn({ name: player1, marker: "X" });
+                setStartGame(false);
+                send({ type: "RESTART" });
+              }}
+            >
+              New game
+            </Button>
+          </>
         )}
       </StyledUIContainer>
     </StyledContainer>
@@ -192,29 +201,5 @@ const StyledUIContainer = styled.div<{
   flexDirection: "column",
   alignItems: "center",
   [mq("lg")]: {},
-  ...additionalStyles,
-}));
-
-const StyledResetButton = styled.button<{
-  additionalStyles?: CSSObject;
-}>(({ additionalStyles }) => ({
-  backgroundColor: "#ff4757", // Modern red color
-  color: "#fff", // Text color
-  border: "none",
-  borderRadius: "5px", // Rounded corners
-  padding: "12px 24px", // Increased padding for better touch targets
-  cursor: "pointer",
-  transition: "background-color 0.3s, transform 0.2s", // Added transform transition
-  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Subtle shadow for depth
-  "&:hover": {
-    backgroundColor: "#e84118", // Slightly darker red on hover
-    transform: "translateY(-2px)", // Lift effect on hover
-  },
-  "&:active": {
-    transform: "translateY(0)", // Reset lift effect on click
-  },
-  [mq("lg")]: {
-    padding: "14px 28px", // Larger padding on larger screens
-  },
   ...additionalStyles,
 }));

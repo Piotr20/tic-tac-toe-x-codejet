@@ -45,7 +45,7 @@ export const StyledButton = styled.button<{
       padding: "8px 36px",
     },
   }),
-  ifProp({ kind: "primary" }, () => ({
+  ifProp({ kind: "primary" }, (additionalStyles?: CSSObject) => ({
     backgroundColor: colors.primary.black,
     color: colors.base.white,
     transition: "all 0.3s ease",
@@ -57,8 +57,9 @@ export const StyledButton = styled.button<{
     },
     [mq("md")]: {},
     [mq("lg")]: {},
+    ...additionalStyles,
   })),
-  ifProp({ kind: "secondary" }, () => ({
+  ifProp({ kind: "secondary" }, (additionalStyles?: CSSObject) => ({
     backgroundColor: colors.base.white,
     color: colors.primary.black,
     border: `2px solid ${colors.primary.black}`,
@@ -69,6 +70,7 @@ export const StyledButton = styled.button<{
       backgroundColor: colors.primary.black,
       color: colors.base.white,
     },
+    ...additionalStyles,
     [mq("md")]: {},
     [mq("lg")]: {
       padding: "6px 34px",

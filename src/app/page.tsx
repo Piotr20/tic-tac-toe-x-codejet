@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main className="">
       {startGame ? (
-        <Board boardSize={boardSize} player1={player1} player2={player2} />
+        <Board boardSize={boardSize} player1={player1} player2={player2} setStartGame={setStartGame} />
       ) : (
         <LobbyDialog
           setStartGame={setStartGame}

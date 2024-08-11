@@ -135,7 +135,6 @@ export function LobbyDialog({ setBoardSize, setPlayer1, setPlayer2, setStartGame
             marginTop: "24px",
           }}
           onClick={() => {
-            console.log("Start game");
             send({
               type: "START",
             });

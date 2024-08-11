@@ -52,6 +52,22 @@ export function checkWinnerHelper(board: Player[][]) {
     return board[0][n - 1];
   }
 
+  //check for draw
+  let isDraw = true;
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (!board[i][j]) {
+        isDraw = false;
+        break;
+      }
+    }
+    if (!isDraw) break;
+  }
+  if (isDraw) {
+    console.log(`Game is a draw`);
+    return "draw";
+  }
+
   //No winner
   console.log(`No winner detected`);
   return null;
