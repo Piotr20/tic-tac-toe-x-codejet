@@ -1,4 +1,8 @@
-export function MarkerCross() {
+type Props = {
+  animated?: boolean;
+};
+
+export function MarkerCross({ animated = false }: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -7,8 +11,22 @@ export function MarkerCross() {
       height="50px"
       viewBox="0 0 50 50"
     >
-      <line pathLength="100" className="stroke" x1="8.5" y1="8.5" x2="41.5" y2="41.5" />
-      <line pathLength="100" className="stroke" x1="41.5" y1="8.5" x2="8.5" y2="41.5" />
+      <line
+        pathLength="100"
+        className={`stroke ${animated ? "animate" : ""}`}
+        x1="8.5"
+        y1="8.5"
+        x2="41.5"
+        y2="41.5"
+      />
+      <line
+        pathLength="100"
+        className={`stroke ${animated ? "animate" : ""}`}
+        x1="41.5"
+        y1="8.5"
+        x2="8.5"
+        y2="41.5"
+      />
     </svg>
   );
 }

@@ -1,10 +1,21 @@
+import { MarkerCircle, MarkerCross } from "@/components/shared";
+import { gameStateStore } from "@/store/store";
 import { BoardSizes, colors, transformCenter } from "@/util";
 import { mq } from "@/util/media-queries";
+import { useMachine } from "@xstate/react";
 import styled, { CSSObject } from "styled-components";
 import { Button, Input, Text } from "../../shared";
-import { MarkerCircle, MarkerCross } from "@/components/shared";
 
-export function LobbyDialog() {
+type Props = {
+  setPlayer1: (player1: string) => void;
+  setPlayer2: (player2: string) => void;
+  setBoardSize: (boardSize: number) => void;
+  setStartGame: (startGame: boolean) => void;
+};
+
+export function LobbyDialog({ setBoardSize, setPlayer1, setPlayer2, setStartGame }: Props) {
+  const [state, send] = useMachine(gameStateStore);
+
   return (
     <StyledLobbyDialogContainer>
       <Text
@@ -29,9 +40,13 @@ export function LobbyDialog() {
               Player 1
             </Text>
             <Input
+              placeholder="Player 1"
               type="text"
               additionalStyles={{
                 marginBottom: "8px",
+              }}
+              onChange={(event) => {
+                setPlayer1(event.target.value);
               }}
             />
             <MarkerCross />
@@ -47,9 +62,13 @@ export function LobbyDialog() {
               Player 2
             </Text>
             <Input
+              placeholder="Player 2"
               type="text"
               additionalStyles={{
                 marginBottom: "8px",
+              }}
+              onChange={(event) => {
+                setPlayer2(event.target.value);
               }}
             />
             <MarkerCircle />
@@ -58,7 +77,12 @@ export function LobbyDialog() {
         <StyledBoardSizePickerContainer>
           {BoardSizes.map((board) =>
             board.size ? (
-              <StyledBoardSizePickerCell key={board.label}>
+              <StyledBoardSizePickerCell
+                key={board.label}
+                onFocus={(event) => {
+                  setBoardSize(board.size);
+                }}
+              >
                 <Text
                   tag="h5"
                   additionalStyles={{
@@ -93,20 +117,32 @@ export function LobbyDialog() {
                 >
                   Chose how big the board should be
                 </Text>
-                <Input min={3} type="number" />
+                <Input
+                  min={3}
+                  type="number"
+                  onChange={(event) => {
+                    setBoardSize(Number(event.target.value));
+                  }}
+                />
               </StyledBoardSizePickerCell>
             )
           )}
         </StyledBoardSizePickerContainer>
         <Button
-          disabled
           kind="primary"
           additionalStyles={{
             margin: "0 auto",
             marginTop: "24px",
           }}
+          onClick={() => {
+            console.log("Start game");
+            send({
+              type: "START",
+            });
+            setStartGame(true);
+          }}
         >
-          Start
+          {state.value === "idle" ? "Start Game" : "Restart Game"}
         </Button>
       </StyledLobbyDialogBody>
     </StyledLobbyDialogContainer>
@@ -199,7 +235,7 @@ export const StyledBoardSizePickerCell = styled.button<{
   ...additionalStyles,
 }));
 
-export const StyledBoard = styled.ul<{
+const StyledBoard = styled.ul<{
   size: number;
   additionalStyles?: CSSObject;
 }>(({ additionalStyles, size }) => ({
@@ -216,7 +252,7 @@ export const StyledBoard = styled.ul<{
   ...additionalStyles,
 }));
 
-export const StyledBoardCell = styled.li<{
+const StyledBoardCell = styled.li<{
   additionalStyles?: CSSObject;
 }>(({ additionalStyles }) => ({
   backgroundColor: colors.base.grey700,

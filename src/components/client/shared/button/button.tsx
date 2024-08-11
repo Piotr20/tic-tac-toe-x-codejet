@@ -50,6 +50,7 @@ export const StyledButton = styled.button<{
     color: colors.base.white,
     transition: "all 0.3s ease",
     borderRadius: "48px",
+
     ["&:hover"]: {
       backgroundColor: colors.secondary.lightYellow,
       color: colors.primary.black,

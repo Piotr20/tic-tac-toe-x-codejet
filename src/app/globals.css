@@ -11,14 +11,18 @@ body {
 
 .stroke {
   stroke-dasharray: 100;
-  stroke-dashoffset: 100;
   stroke: #ffffff;
   stroke-width: 3px;
   fill: none;
+}
+.animate {
   animation: strokeAni 0.7s forwards 1;
 }
 
 @keyframes strokeAni {
+  from {
+    stroke-dashoffset: 100;
+  }
   to {
     stroke-dashoffset: 0;
   }

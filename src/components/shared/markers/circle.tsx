@@ -1,4 +1,7 @@
-export function MarkerCircle() {
+type Props = {
+  animated?: boolean;
+};
+export function MarkerCircle({ animated = false }: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +14,7 @@ export function MarkerCircle() {
       }}
     >
       <circle
-        className="stroke"
+        className={`stroke ${animated ? "animate" : ""}`}
         pathLength="100"
         cx="25"
         cy="25"

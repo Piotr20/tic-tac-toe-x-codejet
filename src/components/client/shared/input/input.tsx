@@ -6,7 +6,6 @@ type Props = {
   placeholder?: string;
   additionalStyles?: CSSObject;
   type?: string;
-  onChange?: ReactEventHandler;
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "children">;
 
 export function Input({ placeholder, additionalStyles, type, onChange, ...rest }: Props) {
